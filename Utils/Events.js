@@ -27,6 +27,15 @@ searchInput.addEventListener('input', function () {
     if (this.value.length > 0) {
         searchBtnClose.classList.add('show');
         searchBtnClose.classList.remove('hide');
+
+        if (this.value.length >= 3) {
+            const query = [this.value];
+            const searchedRecipes = rechercherRecettes(query);
+            const searchedCardFactory = new RecipeCardFactory();
+            const cardsHTMLAfterSearch = searchedRecipes.map(recipe => searchedCardFactory.createCard(recipe)).join('');
+            recipesContainer.innerHTML = cardsHTMLAfterSearch;
+            numOfRecipes.innerHTML = searchedRecipes.length + " recettes";
+        }
     } else if (this.value.length === 0) {
         searchBtnClose.classList.remove('show');
         searchBtnClose.classList.add('hide');
