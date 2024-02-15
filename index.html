@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Les Petits Plats</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@200..800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <img class="logo" src="Assets/Logo.png" alt="Les Petits Plats logo">
+        <div class="searchContainer">
+            <h1 class="searchTitle">Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses</h1>
+            <form id="form">
+                <div class="formContainer">
+                    <input id="searchInput" class="searchInput" type="text" placeholder="Rechercher une recette, un ingrédient, ...">
+                    <div class="searchBtnContainer">
+                        <div class="btnCloseContainer">
+                            <button id="searchBtnClose" class="searchBtn searchBtnClose hide" type="button"><img src="Assets/closeIcon.png"
+                                    alt="Fermer"></button>
+                        </div>
+                        <button id="searchBtnSearch" class="searchBtn searchBtnSearch" type="button" id="btnTest"><img
+                                src="Assets/searchIcon.svg" alt="Rechercher"></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </header>
+    <main>
+        <div class="mainHeader">
+            <div class="filtersContainer">
+                <div id="dropdownIngredientDIV" class="filterDropdown">
+                    <div id="dropdownIngredient" class="dropdownTitle">
+                        <p class="dropdownTitleContent">Ingrédients</p>
+                        <img class="dropdownArrow" src="Assets/downArrow.svg" alt="Ouvrir le menu déroulant">
+                    </div>
+                    <div id="dropdownIngredientContent" class="dropdownContent hide">
+                        <div class="dropdownSearchContainer">
+                            <input id="dropdownIngredientInput" class="dropdownSearchInput" type="text" placeholder="">
+                            <div class="dropdownSearchBtnContainer">
+                                <div class="dropdownBtnCloseContainer">
+                                    <button id="dropdownIngredientClose" class="dropdownSearchBtn dropdownSearchBtnClose hide" type="button"><img
+                                            class="closeBtnImg" src="Assets/closeIcon.png" alt="Fermer"></button>
+                                </div>
+                                <button class="dropdownSearchBtn dropdownSearchBtnSearch" type="button"><img
+                                        class="searchBtnImg" src="Assets/dropdownSearchIcon.svg"
+                                        alt="Rechercher"></button>
+                            </div>
+                        </div>
+                        <div class="dropdownListContainer">
+                            <ul id="dropdownListIngredients" class="dropdownList">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="dropdownAppareilDIV" class="filterDropdown">
+                    <div id="dropdownAppareil" class="dropdownTitle">
+                        <p class="dropdownTitleContent">Appareils</p>
+                        <img class="dropdownArrow" src="Assets/downArrow.svg" alt="Ouvrir le menu déroulant">
+                    </div>
+                    <div id="dropdownAppareilContent" class="dropdownContent hide">
+                        <div class="dropdownSearchContainer">
+                            <input id="dropdownAppareilInput" class="dropdownSearchInput" type="text" placeholder="">
+                            <div class="dropdownSearchBtnContainer">
+                                <div class="dropdownBtnCloseContainer">
+                                    <button id="dropdownAppareilClose" class="dropdownSearchBtn dropdownSearchBtnClose hide" type="button"><img
+                                            class="closeBtnImg" src="Assets/closeIcon.png" alt="Fermer"></button>
+                                </div>
+                                <button class="dropdownSearchBtn dropdownSearchBtnSearch" type="button"><img
+                                        class="searchBtnImg" src="Assets/dropdownSearchIcon.svg"
+                                        alt="Rechercher"></button>
+                            </div>
+                        </div>
+                        <div class="dropdownListContainer">
+                            <ul id="dropdownListAppliances" class="dropdownList">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="dropdownUstensilsDIV" class="filterDropdown">
+                    <div id="dropdownUstensils" class="dropdownTitle">
+                        <p class="dropdownTitleContent">Ustensiles</p>
+                        <img class="dropdownArrow" src="Assets/downArrow.svg" alt="Ouvrir le menu déroulant">
+                    </div>
+                    <div id="dropdownUstensilsContent" class="dropdownContent hide">
+                        <div class="dropdownSearchContainer">
+                            <input id="dropdownUstensilsInput" class="dropdownSearchInput" type="text" placeholder="">
+                            <div class="dropdownSearchBtnContainer">
+                                <div class="dropdownBtnCloseContainer">
+                                    <button id="dropdownUstensilsClose" class="dropdownSearchBtn dropdownSearchBtnClose hide" type="button"><img
+                                            class="closeBtnImg" src="Assets/closeIcon.png" alt="Fermer"></button>
+                                </div>
+                                <button class="dropdownSearchBtn dropdownSearchBtnSearch" type="button"><img
+                                        class="searchBtnImg" src="Assets/dropdownSearchIcon.svg"
+                                        alt="Rechercher"></button>
+                            </div>
+                        </div>
+                        <div class="dropdownListContainer">
+                            <ul id="dropdownListUstensils" class="dropdownList">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h2 id="numOfRecipes" class="totalRecipes">1500 recettes</h2>
+        </div>
+        <div id="selectedFilterContainer" class="selectedFilterContainer">
+
+        </div>
+        <div class="recipesContainer" id="recipesContainer">
+        </div>
+    </main>
+
+    <script type="module" src="script.js"></script>
+    <script type="module" src="Data/recipes.js"></script>
+    <script type="module" src="Utils/FactoryRecipe.js"></script>
+    <script type="module" src="Utils/FactoryFilter.js"></script>
+    <script type="module" src="Utils/Events.js"></script>
+    <script type="module" src="Utils/listSetup.js"></script>
+</body>
+
+</html>
