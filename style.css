@@ -174,7 +174,7 @@ main {
     border-bottom-left-radius: 11px;
     border-bottom-right-radius: 11px;
     padding-bottom: 10px;
-    height: 258px;
+    /*height: 258px;*/
 }
 
 .dropdownSearchContainer {
@@ -249,7 +249,7 @@ main {
     width: 163px;
     margin: 0 auto;
     padding: 0;
-    height: 202px;
+    max-height: 202px;
     overflow: hidden;
     overflow-y: scroll;
 }

@@ -1,3 +1,5 @@
+import { removeSelectedFilterItem } from "./Events.js";
+
 export default function createSelectedFilterElement(filterId, filterTitle, closeIconPath) {
     // Création de l'élément div principal
     const div = document.createElement('div');
@@ -16,6 +18,7 @@ export default function createSelectedFilterElement(filterId, filterTitle, close
     img.alt = 'Supprimer le filtre';
 
     img.addEventListener('click', function() {
+        removeSelectedFilterItem(filterTitle);
         div.remove();
     });
 

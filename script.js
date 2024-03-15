@@ -7,19 +7,20 @@ let filterArray = [];
 */
 
 const recipesContainer = document.getElementById('recipesContainer');
+const numOfRecipes = document.getElementById("numOfRecipes");
+
+export default function displayRecipes(recipes) {
+    recipesContainer.innerHTML = '';
+    const cardFactory = new RecipeCardFactory();
+    console.trace()
+    const cardsHTML = recipes.map(recipe => cardFactory.createCard(recipe)).join('');
+    recipesContainer.innerHTML = cardsHTML;
+    numOfRecipes.innerHTML = recipes.length + " recettes";
+    listSetup(recipes);
+}
 
 function main() {
-    const cardFactory = new RecipeCardFactory();
-    const cardsHTML = recipes.map(recipe => cardFactory.createCard(recipe)).join('');
-
-    recipesContainer.innerHTML = cardsHTML;
-
-    listSetup(recipes);
-
-    /*
-    const test = recipesContainer.childNodes;
-    const tableauTest = Array.from(test).filter(e => e.nodeType === Node.ELEMENT_NODE);
-    console.log(tableauTest);*/
+    displayRecipes(recipes);
 }
 
 main();
