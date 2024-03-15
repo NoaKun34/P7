@@ -362,6 +362,9 @@ export function removeSelectedFilterItem(itemFilter) {
   if (ustensilFiltersItems.length) {
     result = utensilFilter(ustensilFiltersItems, result);
   }
+  if (searchInput.value.length) {
+    result = rechercherRecettes([searchInput.value], result);
+  }
 
   actualRecipes = [...new Set(result)];
   displayRecipes(actualRecipes);
