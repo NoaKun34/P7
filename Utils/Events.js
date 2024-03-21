@@ -31,6 +31,7 @@ searchInput.addEventListener("input", function () {
   if (this.value.length > 0) {
     searchBtnClose.classList.add("show");
     searchBtnClose.classList.remove("hide");
+    console.log("selectedFilterItems dans input " + selectedFilterItems);
 
     if (this.value.length >= 3) {
       // Remove previous value from selectedFilterItems
@@ -48,6 +49,7 @@ searchInput.addEventListener("input", function () {
         actualRecipes
       );
       actualRecipes = searchedRecipes;
+      console.log("selectedFilterItems dans input +3 " + selectedFilterItems);
 
       displayRecipes(actualRecipes);
       console.log("actualRecipes dans input" + actualRecipes);
@@ -58,15 +60,39 @@ searchInput.addEventListener("input", function () {
   } else if (this.value.length === 0) {
     searchBtnClose.classList.remove("show");
     searchBtnClose.classList.add("hide");
+    console.log("selectedFilterItems dans input " + selectedFilterItems);
+    console.log(
+      "selectedFilterItems length dans input " + selectedFilterItems.length
+    );
+    selectedFilterItems = [];
 
-    if (selectedFilterItems.length === 0) {
+    if (
+      selectedFilterItems.length === 0 &&
+      ingredientFiltersItems === 0 &&
+      applianceFiltersItems === 0 &&
+      ustensilFiltersItems === 0
+    ) {
       displayRecipes(recipes);
     } else {
-      const searchedRecipes = rechercherRecettes(
-        selectedFilterItems,
-        actualRecipes
-      );
-      actualRecipes = searchedRecipes;
+      //const searchedRecipes = rechercherRecettes(
+      //  selectedFilterItems,
+      //  actualRecipes
+      //);
+      //actualRecipes = searchedRecipes;
+      //displayRecipes(actualRecipes);
+      let result = recipes;
+
+      if (ingredientFiltersItems.length) {
+        result = ingredientFilter(ingredientFiltersItems, result);
+      }
+      if (applianceFiltersItems.length) {
+        result = applianceFilter(applianceFiltersItems, result);
+      }
+      if (ustensilFiltersItems.length) {
+        result = utensilFilter(ustensilFiltersItems, result);
+      }
+
+      actualRecipes = [...new Set(result)];
       displayRecipes(actualRecipes);
     }
   }
@@ -105,7 +131,6 @@ export function rechercherRecettes(query) {
 }*/
 
 export function rechercherRecettes(filtres, recipes) {
-  console.log("filtres = " + filtres);
   return recipes.filter((recette) => {
     // Convertir chaque filtre en minuscules pour la comparaison
     const filtresLower = filtres.map((filtre) => filtre.toLowerCase());
@@ -279,7 +304,7 @@ export function addSelectedFilterItem(itemFilter, type) {
       selectedFilterItems.push(searchInput.value);
     }
   }
-  selectedFilterItems.push(itemFilter);
+  //selectedFilterItems.push(itemFilter);
 
   const filterLowerCase = itemFilter.toLowerCase().replace(/ /g, ""); // Convertit le filtre en minuscules et supprime les espaces
   const selectedFilterElement = createSelectedFilterElement(
@@ -292,7 +317,6 @@ export function addSelectedFilterItem(itemFilter, type) {
   //const searchedRecipes = searchFilter(selectedFilterItems, type, actualRecipes);
   const searchedRecipes = searchFilter(itemFilter, type, actualRecipes);
   actualRecipes = [...new Set(searchedRecipes)];
-  console.log("actualRecipes dans addSelectedFilterItem" + actualRecipes);
   displayRecipes(actualRecipes);
 }
 
@@ -406,7 +430,6 @@ function searchFilter(filterItems, filterType, recipes) {
 //}
 
 function ingredientFilter(filters, recipes) {
-  console.log("typeof" + filters);
   return recipes.filter((recipe) => {
     const filtersLower = filters.map((filter) => filter.toLowerCase());
 
@@ -421,8 +444,6 @@ function ingredientFilter(filters, recipes) {
 }
 
 function applianceFilter(filters, recipes) {
-  console.log("filters dans applianceFilter = ", filters);
-  console.log("typeOf filters dans applianceFilter = ", typeof filters);
   return recipes.filter((recipe) => {
     const filtersLower = filters.map((filter) => filter.toLowerCase());
 
