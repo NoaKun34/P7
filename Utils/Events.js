@@ -1,6 +1,7 @@
 import { recipes } from "../Data/recipes.js";
 import createSelectedFilterElement from "./FactoryFilter.js";
 import displayRecipes from "./../script.js";
+import addItemsToDropdownList from './listSetup.js'
 
 let selectedFilterItems = [];
 let actualRecipes = recipes;
@@ -168,126 +169,6 @@ searchBtnSearch.addEventListener("click", () => {
 
 /* --------------------------------------------------------------------- */
 
-/* INGREDIENTS DROPDOWN */
-const dropdownIngredientDIV = document.getElementById("dropdownIngredientDIV");
-const dropdownIngredient = document.getElementById("dropdownIngredient");
-const dropdownIngredientContent = document.getElementById(
-  "dropdownIngredientContent"
-);
-const dropdownIngredientInput = document.getElementById(
-  "dropdownIngredientInput"
-);
-const dropdownIngredientClose = document.getElementById(
-  "dropdownIngredientClose"
-);
-const dropdownItems = document.getElementsByClassName("dropdownListItem");
-
-dropdownIngredientInput.addEventListener("input", function () {
-  if (this.value.length > 0) {
-    dropdownIngredientClose.classList.add("show");
-    dropdownIngredientClose.classList.remove("hide");
-  } else if (this.value.length === 0) {
-    dropdownIngredientClose.classList.remove("show");
-    dropdownIngredientClose.classList.add("hide");
-  }
-});
-
-dropdownIngredientClose.addEventListener("click", function () {
-  dropdownIngredientInput.value = "";
-  dropdownIngredientClose.classList.remove("show");
-  dropdownIngredientClose.classList.add("hide");
-});
-
-dropdownIngredient.addEventListener("click", function () {
-  if (dropdownIngredientContent.classList.contains("hide")) {
-    dropdownIngredientContent.classList.remove("hide");
-    dropdownIngredientContent.classList.add("show");
-    dropdownIngredientDIV.classList.add("filterDropdownOpen");
-  } else {
-    dropdownIngredientContent.classList.remove("show");
-    dropdownIngredientContent.classList.add("hide");
-    dropdownIngredientDIV.classList.remove("filterDropdownOpen");
-  }
-});
-
-/* APPAREILS DROPDOWN */
-const dropdownAppareilDIV = document.getElementById("dropdownAppareilDIV");
-const dropdownAppareil = document.getElementById("dropdownAppareil");
-const dropdownAppareilContent = document.getElementById(
-  "dropdownAppareilContent"
-);
-const dropdownAppareilInput = document.getElementById("dropdownAppareilInput");
-const dropdownAppareilClose = document.getElementById("dropdownAppareilClose");
-
-dropdownAppareilInput.addEventListener("input", function () {
-  if (this.value.length > 0) {
-    dropdownAppareilClose.classList.add("show");
-    dropdownAppareilClose.classList.remove("hide");
-  } else if (this.value.length === 0) {
-    dropdownAppareilClose.classList.remove("show");
-    dropdownAppareilClose.classList.add("hide");
-  }
-});
-
-dropdownAppareilClose.addEventListener("click", function () {
-  dropdownAppareilInput.value = "";
-  dropdownAppareilClose.classList.remove("show");
-  dropdownAppareilClose.classList.add("hide");
-});
-
-dropdownAppareil.addEventListener("click", function () {
-  if (dropdownAppareilContent.classList.contains("hide")) {
-    dropdownAppareilContent.classList.remove("hide");
-    dropdownAppareilContent.classList.add("show");
-    dropdownAppareilDIV.classList.add("filterDropdownOpen");
-  } else {
-    dropdownAppareilContent.classList.remove("show");
-    dropdownAppareilContent.classList.add("hide");
-    dropdownAppareilDIV.classList.remove("filterDropdownOpen");
-  }
-});
-
-/* USTENSILS DROPDOWN */
-const dropdownUstensilsDIV = document.getElementById("dropdownUstensilsDIV");
-const dropdownUstensils = document.getElementById("dropdownUstensils");
-const dropdownUstensilsContent = document.getElementById(
-  "dropdownUstensilsContent"
-);
-const dropdownUstensilsInput = document.getElementById(
-  "dropdownUstensilsInput"
-);
-const dropdownUstensilsClose = document.getElementById(
-  "dropdownUstensilsClose"
-);
-
-dropdownUstensilsInput.addEventListener("input", function () {
-  if (this.value.length > 0) {
-    dropdownUstensilsClose.classList.add("show");
-    dropdownUstensilsClose.classList.remove("hide");
-  } else if (this.value.length === 0) {
-    dropdownUstensilsClose.classList.remove("show");
-    dropdownUstensilsClose.classList.add("hide");
-  }
-});
-
-dropdownUstensilsClose.addEventListener("click", function () {
-  dropdownUstensilsInput.value = "";
-  dropdownUstensilsClose.classList.remove("show");
-  dropdownUstensilsClose.classList.add("hide");
-});
-
-dropdownUstensils.addEventListener("click", function () {
-  if (dropdownUstensilsContent.classList.contains("hide")) {
-    dropdownUstensilsContent.classList.remove("hide");
-    dropdownUstensilsContent.classList.add("show");
-    dropdownUstensilsDIV.classList.add("filterDropdownOpen");
-  } else {
-    dropdownUstensilsContent.classList.remove("show");
-    dropdownUstensilsContent.classList.add("hide");
-    dropdownUstensilsDIV.classList.remove("filterDropdownOpen");
-  }
-});
-
 /* SELECTED FILTER ITEM */
 
 const selectedFilterContainer = document.getElementById(
@@ -298,7 +179,9 @@ let ingredientFiltersItems = [];
 let applianceFiltersItems = [];
 let ustensilFiltersItems = [];
 
-export function addSelectedFilterItem(itemFilter, type) {
+let clickedItem = [];
+
+export function addSelectedFilterItem(itemFilter, type, itemID) {
   if (searchInput.value.length > 0) {
     if (!selectedFilterItems.includes(searchInput.value)) {
       selectedFilterItems.push(searchInput.value);
@@ -318,6 +201,15 @@ export function addSelectedFilterItem(itemFilter, type) {
   const searchedRecipes = searchFilter(itemFilter, type, actualRecipes);
   actualRecipes = [...new Set(searchedRecipes)];
   displayRecipes(actualRecipes);
+  //CHANGER LA COULEUR DE FILTRE ICI
+  clickedItem.push(itemID);
+  if (clickedItem.length > 0) {
+    clickedItem.map((item) => {
+      const dropdownElement = document.getElementById(item);
+      dropdownElement.classList.add("clicked-item");
+      console.log("clickedItem dans addSelectedFilterItem = ", item);
+    });
+  }
 }
 
 //export function removeSelectedFilterItem(itemFilter, type) {
@@ -392,6 +284,20 @@ export function removeSelectedFilterItem(itemFilter) {
 
   actualRecipes = [...new Set(result)];
   displayRecipes(actualRecipes);
+  console.log("filterTitle dans removeSelectedFilterItem = ", itemFilter);
+  //CHANGER LA COULEUR DE FILTRE ICI
+  let itemID = "dropdownElement-" + itemFilter.toLowerCase().replace(/ /g, "");
+  let index = clickedItem.indexOf(itemID);
+  if (index !== -1) {
+    clickedItem.splice(index, 1);
+  }
+  if (clickedItem.length > 0) {
+    clickedItem.map((item) => {
+      const dropdownElement = document.getElementById(item);
+      dropdownElement.classList.add("clicked-item");
+      console.log("clickedItem dans addSelectedFilterItem = ", item);
+    });
+  }
 }
 
 function searchFilter(filterItems, filterType, recipes) {
