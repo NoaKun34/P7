@@ -15,7 +15,7 @@ const form = document.getElementById("form");
 form.addEventListener("submit", function (e) {
   e.preventDefault();
   const query = [searchInput.value];
-  const searchedRecipes = rechercherRecettes(query);
+  const searchedRecipes = recipesSearch(query);
   displayRecipes(searchedRecipes);
 });
 
@@ -35,7 +35,7 @@ searchInput.addEventListener("input", function () {
       }
 
       selectedFilterItems.push(this.value);
-      const searchedRecipes = rechercherRecettes(
+      const searchedRecipes = recipesSearch(
         selectedFilterItems,
         actualRecipes
       );
@@ -84,7 +84,7 @@ searchBtnClose.addEventListener("click", function () {
   displayRecipes(actualRecipes);
 });
 
-export function rechercherRecettes(filtres, recipes) {
+function recipesSearch(filtres, recipes) {
   return recipes.filter((recette) => {
     const filtresLower = filtres.map((filtre) => filtre.toLowerCase());
 
@@ -108,7 +108,7 @@ export function rechercherRecettes(filtres, recipes) {
 
 searchBtnSearch.addEventListener("click", () => {
   const query = [searchInput.value];
-  const searchedRecipes = rechercherRecettes(query, actualRecipes);
+  const searchedRecipes = recipesSearch(query, actualRecipes);
 
   displayRecipes(searchedRecipes);
 });
@@ -173,7 +173,7 @@ export function removeSelectedFilterItem(itemFilter) {
     result = utensilFilter(ustensilFiltersItems, result);
   }
   if (searchInput.value.length) {
-    result = rechercherRecettes([searchInput.value], result);
+    result = recipesSearch([searchInput.value], result);
   }
 
   actualRecipes = [...new Set(result)];
