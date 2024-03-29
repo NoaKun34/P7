@@ -1,5 +1,4 @@
 import { addSelectedFilterItem, rechercherRecettes } from "./Events.js";
-//import rechercherRecettes from "./Events.js";
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -24,28 +23,18 @@ function getUniqueIngredients(recipes) {
 }
 
 function addItemsToDropdownList(dropdownElement, items, itemType) {
-  // Effacez d'abord le contenu actuel
   dropdownElement.innerHTML = "";
 
-  // Parcourez chaque élément de la liste 'items'
   items.forEach((item) => {
-    // Créez un nouvel élément 'li'
     const li = document.createElement("li");
-    li.textContent = item; // Définissez le texte de l'élément
-    li.className = "dropdownListItem"; // Ajoutez des classes si nécessaire
-    li.id = "dropdownElement-" + item.toLowerCase().replace(/ /g, ""); // Définissez l'ID
-    // Ajoutez un écouteur d'événements à l'élément 'li'
+    li.textContent = item;
+    li.className = "dropdownListItem";
+    li.id = "dropdownElement-" + item.toLowerCase().replace(/ /g, "");
     li.addEventListener("click", function (event) {
-      // Gérez l'événement de clic ici
-      console.log("Clic sur l'élément", item);
-      console.log("Type d'élément", itemType);
       addSelectedFilterItem(item, itemType, li.id);
-
-      // Ajoutez la classe 'clicked-item' à l'élément cliqué
       event.target.classList.add('clicked-item');
     });
 
-    // Ajoutez l'élément 'li' au DOM, sous l'élément 'dropdownElement'
     dropdownElement.appendChild(li);
   });
 }
@@ -94,7 +83,6 @@ const dropdownIngredientInput = document.getElementById(
 const dropdownIngredientClose = document.getElementById(
   "dropdownIngredientClose"
 );
-const dropdownItems = document.getElementsByClassName("dropdownListItem");
 
 let actualIngredient = [];
 
@@ -105,7 +93,6 @@ dropdownIngredientInput.addEventListener("input", function () {
     dropdownIngredientClose.classList.remove("hide");
 
     let matchingIngredients = actualIngredient.filter(ingredient => ingredient.toLowerCase().includes(inputValue));
-    console.log(matchingIngredients);
     addItemsToDropdownList(dropdownListIngredients, matchingIngredients, "ingredient");
 
   } else if (inputValue.length === 0) {
@@ -143,7 +130,7 @@ const dropdownAppareilContent = document.getElementById(
 const dropdownAppareilInput = document.getElementById("dropdownAppareilInput");
 const dropdownAppareilClose = document.getElementById("dropdownAppareilClose");
 
-let actualAppliance = []; // Votre tableau d'appareils
+let actualAppliance = [];
 
 dropdownAppareilInput.addEventListener("input", function () {
   let inputValue = this.value.toLowerCase();
@@ -152,7 +139,6 @@ dropdownAppareilInput.addEventListener("input", function () {
     dropdownAppareilClose.classList.remove("hide");
 
     let matchingAppliances = actualAppliance.filter(appliance => appliance.toLowerCase().includes(inputValue));
-    console.log(matchingAppliances); // Affiche les appareils correspondants dans la console
     addItemsToDropdownList(dropdownListAppliances, matchingAppliances, "appliance");
 
   } else if (inputValue.length === 0) {
@@ -194,7 +180,7 @@ const dropdownUstensilsClose = document.getElementById(
   "dropdownUstensilsClose"
 );
 
-let actualUtensil = []; // Votre tableau d'ustensiles
+let actualUtensil = [];
 
 dropdownUstensilsInput.addEventListener("input", function () {
   let inputValue = this.value.toLowerCase();
@@ -203,7 +189,6 @@ dropdownUstensilsInput.addEventListener("input", function () {
     dropdownUstensilsClose.classList.remove("hide");
 
     let matchingUtensils = actualUtensil.filter(utensil => utensil.toLowerCase().includes(inputValue));
-    console.log(matchingUtensils); // Affiche les ustensiles correspondants dans la console
     addItemsToDropdownList(dropdownListUstensils, matchingUtensils, "utensil");
 
   } else if (inputValue.length === 0) {
@@ -235,12 +220,10 @@ dropdownUstensils.addEventListener("click", function () {
 export default function listSetup(data) {
   const ingredients = getUniqueIngredients(data);
   actualIngredient = ingredients;
-  console.log("ingredient = " + ingredients);
   addItemsToDropdownList(dropdownListIngredients, ingredients, "ingredient");
 
   const appliances = getUniqueAppliances(data);
   actualAppliance = appliances;
-  console.log("appliance = " + appliances);
   addItemsToDropdownList(dropdownListAppliances, appliances, "appliance");
 
   const utensils = getUniqueUtensils(data);
