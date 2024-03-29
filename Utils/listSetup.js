@@ -1,4 +1,4 @@
-import { addSelectedFilterItem, rechercherRecettes } from "./Events.js";
+import { addSelectedFilterItem } from "./Events.js";
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
