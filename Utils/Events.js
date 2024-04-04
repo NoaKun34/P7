@@ -10,6 +10,7 @@ let actualRecipes = recipes;
 const searchInput = document.getElementById("searchInput");
 const searchBtnClose = document.getElementById("searchBtnClose");
 const searchBtnSearch = document.getElementById("searchBtnSearch");
+const noResult = document.getElementById("noResult");
 const form = document.getElementById("form");
 
 form.addEventListener("submit", function (e) {
@@ -42,11 +43,19 @@ searchInput.addEventListener("input", function () {
 
       actualRecipes = searchedRecipes;
       displayRecipes(actualRecipes);
+      console.log("actualRecipes" + actualRecipes.length);
+      if (actualRecipes.length === 0) {
+        noResult.classList.remove("hide");
+        noResult.classList.add("show");
+        noResult.innerHTML = "Aucune recette ne « " + this.value + " » vous pouvez chercher « tarte aux pommes », « poisson », etc.";
+      }
       previousValue = this.value;
     }
   } else if (this.value.length === 0) {
     searchBtnClose.classList.remove("show");
     searchBtnClose.classList.add("hide");
+    noResult.classList.remove("show");
+        noResult.classList.add("hide");
     selectedFilterItems = [];
 
     if (
