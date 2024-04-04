@@ -6,6 +6,11 @@ input:focus {
     outline: none;
 }
 
+html {
+    height: 100vh;
+    background-color: #ededed;
+}
+
 /* HEADER */
 header {
     display: flex;
@@ -266,6 +271,22 @@ main {
 
 .clicked-item {
     background-color: #FFD15B !important;
+}
+
+.noResultContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+#noResult {
+    margin: 0 auto;
+    color: red;
+    font-family: Manrope;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding: 5px 15px;
 }
 
 /* SELECTED FILTER */
